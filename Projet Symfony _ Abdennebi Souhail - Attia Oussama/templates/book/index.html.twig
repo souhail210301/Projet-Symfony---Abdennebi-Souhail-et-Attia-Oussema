@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BookController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+        <div class="form-row align-items-end" >
+            <div class="col">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Rechercher</button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+        {% if books %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Auteur</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.description }}</td>
+                        <td>{{ book.author.name }}</td>
+                        <td>
+                            <a href="{{ path('book_show', {'id': book.id}) }}" class="btn btn-dark">Détails</a>
+                            {% if is_granted('ROLE_EDITOR') %}
+                            <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn btn-warning">Modifier</a>
+                            <a href="{{ path('book_delete', {'id': book.id}) }}" class="btn btn-danger" onclick="return confirm('Etesvous sûr de supprimer cet auteur?');">Supprimer</a>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="alert alert-danger">Aucun livre</p>
+        {% endif %}
+    </div>
+{% endblock %}

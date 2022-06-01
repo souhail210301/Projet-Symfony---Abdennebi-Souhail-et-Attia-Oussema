@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ book.name }}{% endblock %}
+{% block body %}
+    <div class="container">
+        <table class="table">
+            <thead>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Auteur</th>
+            </thead>
+            <tbody>
+            <td>{{ book.name }}</td>
+            <td>{{ book.description }}</td>
+            <td>{{ book.author.name }}</td>
+            </tbody>
+        </table>
+        <a href="/" class="btn btn-dark btn-sm">Retour</a>
+    </div>
+
+{% endblock %}
